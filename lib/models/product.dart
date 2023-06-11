@@ -8,10 +8,10 @@ class Product {
   Product(this.name, this.description, this.unitPrice);
 
   Product.fromObj(dynamic obj) {
-    this.id = int.parse(obj["id"]);
+    this.id = int.parse(obj["id"].toString());
     this.name = obj["name"];
     this.description = obj["description"];
-    this.unitPrice = double.parse(obj["unitPrice"]);
+    this.unitPrice = double.parse(obj["unitPrice"].toString());
   }
 
   Map<String, dynamic> toMap() {

@@ -73,6 +73,7 @@ class _AddProductState extends State<AddProduct> {
   void addProduct() async {
     var result=await dbHelper.insert(Product(
         nameTxt.text, descriptionTxt.text, double.parse(unitPriceTxt.text)));
-    Navigator.pop(context, true);
+     // ignore: use_build_context_synchronously
+     Navigator.pop(context, true);
   }
 }

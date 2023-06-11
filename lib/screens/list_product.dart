@@ -54,7 +54,9 @@ class _ListProduct extends State<ListProduct> {
                       {
                         if (value)
                           {
-                            getProduct(),
+                            setState(() {
+                              getProduct();
+                            })
                           }
                       }
                   });
@@ -64,7 +66,10 @@ class _ListProduct extends State<ListProduct> {
   }
 
   void getProduct() {
-    var productResult = dbHelper.getProducts();
-    productResult.then((data) => {products = data, productCount = data.length});
+    setState(() {
+      var productResult = dbHelper.getProducts();
+      productResult
+          .then((data) => {products = data, productCount = data.length});
+    });
   }
 }
