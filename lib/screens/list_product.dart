@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_with_sqflite_demo/data/db_helper.dart';
 import 'package:flutter_with_sqflite_demo/screens/add_product.dart';
+import 'package:flutter_with_sqflite_demo/screens/details_product.dart';
 
 import '../models/product.dart';
 
@@ -35,11 +36,14 @@ class _ListProduct extends State<ListProduct> {
               elevation: 2,
               child: ListTile(
                 leading: const CircleAvatar(
-                  backgroundColor: Colors.black12,
+                  backgroundColor: Colors.white,
                   child: Text("P"),
                 ),
                 title: Text("${products?[index].name}"),
                 subtitle: Text("${products?[index].description}"),
+                onTap: () {
+                  gotoDetails(products![index]);
+                },
               ),
             );
           }),
@@ -47,29 +51,39 @@ class _ListProduct extends State<ListProduct> {
         tooltip: "Add a new product",
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.push(context,
-                  MaterialPageRoute(builder: (builder) => const AddProduct()))
-              .then((value) => {
-                    if (value != null)
-                      {
-                        if (value)
-                          {
-                            setState(() {
-                              getProduct();
-                            })
-                          }
-                      }
-                  });
+          gotoAddProduct();
         },
       ),
     );
   }
 
+  gotoAddProduct() async {
+    var result = await Navigator.push(
+        context, MaterialPageRoute(builder: (builder) => const AddProduct()));
+    if (result != null) {
+      if (result) {
+        getProduct();
+      }
+    }
+  }
+
   void getProduct() {
-    setState(() {
-      var productResult = dbHelper.getProducts();
-      productResult
-          .then((data) => {products = data, productCount = data.length});
-    });
+    var productResult = dbHelper.getProducts();
+    productResult.then((data) => {
+          setState(() {
+            products = data;
+            productCount = data.length;
+          })
+        });
+  }
+
+  void gotoDetails(Product product) async {
+    var result = await Navigator.push(context,
+        MaterialPageRoute(builder: (builder) => DetailsProduct(product)));
+    if (result != null) {
+      if (result) {
+        getProduct();
+      }
+    }
   }
 }

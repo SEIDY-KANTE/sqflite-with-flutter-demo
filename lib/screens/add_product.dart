@@ -47,7 +47,7 @@ class _AddProductState extends State<AddProduct> {
   buildDescriptionField() {
     return TextField(
       decoration: const InputDecoration(
-        labelText: "Description of prodcut",
+        labelText: "Description of product",
       ),
       controller: descriptionTxt,
     );
@@ -71,9 +71,11 @@ class _AddProductState extends State<AddProduct> {
   }
 
   void addProduct() async {
-    var result=await dbHelper.insert(Product(
-        nameTxt.text, descriptionTxt.text, double.parse(unitPriceTxt.text)));
-     // ignore: use_build_context_synchronously
-     Navigator.pop(context, true);
+    setState(() async {
+      var result = await dbHelper.insert(Product(
+          nameTxt.text, descriptionTxt.text, double.parse(unitPriceTxt.text)));
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context, true);
+    });
   }
 }
