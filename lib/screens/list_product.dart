@@ -34,17 +34,7 @@ class _ListProduct extends State<ListProduct> {
             return Card(
               color: Colors.cyan,
               elevation: 2,
-              child: ListTile(
-                leading: const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Text("P"),
-                ),
-                title: Text("${products?[index].name}"),
-                subtitle: Text("${products?[index].description}"),
-                onTap: () {
-                  gotoDetails(products![index]);
-                },
-              ),
+              child: buildProduct(index),
             );
           }),
       floatingActionButton: FloatingActionButton(
@@ -54,6 +44,20 @@ class _ListProduct extends State<ListProduct> {
           gotoAddProduct();
         },
       ),
+    );
+  }
+
+  buildProduct(int index) {
+    return ListTile(
+      leading: const CircleAvatar(
+        backgroundColor: Colors.white,
+        child: Text("P"),
+      ),
+      title: Text("${products?[index].name}"),
+      subtitle: Text("${products?[index].description}"),
+      onTap: () {
+        gotoDetails(products![index]);
+      },
     );
   }
 
