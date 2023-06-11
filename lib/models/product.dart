@@ -1,8 +1,8 @@
 class Product {
-  late int id;
-  late String name;
-  late String description;
-  late double unitPrice;
+   int? id;
+   String? name;
+   String? description;
+   double? unitPrice;
 
   Product.withID(this.id, this.name, this.description, this.unitPrice);
   Product(this.name, this.description, this.unitPrice);
